@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/routing/routes.dart';
+import '../../../../core/theme/theme_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,19 +10,37 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Aurelia Home'),
-      ),
+      appBar: AppBar(title: const Text('Aurelia Home')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              Routes.login,
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  Routes.login,
                   (route) => false,
-            );
-          },
-          child: const Text('Logout'),
+                );
+              },
+              child: const Text('Logout'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<ThemeCubit>().changeTheme(ThemeMode.dark);
+              },
+              child: const Text('Dark Mode'),
+            ),ElevatedButton(
+              onPressed: () {
+                context.read<ThemeCubit>().changeTheme(ThemeMode.light);
+              },
+              child: const Text('Light Mode'),
+            ),ElevatedButton(
+              onPressed: () {
+                context.read<ThemeCubit>().changeTheme(ThemeMode.system);
+              },
+              child: const Text('System Mode'),
+            ),
+          ],
         ),
       ),
     );
