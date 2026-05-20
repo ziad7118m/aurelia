@@ -1,6 +1,7 @@
 import 'package:aurelia/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/localization/app_localization_extension.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,9 +9,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: AppBar(title: Text(context.translate('login'))),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -33,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, Routes.register);
               },
-              child: const Text('Create Account'),
+              child: Text(context.translate('createAccount')),
             ),
           ],
         ),
