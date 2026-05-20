@@ -1,3 +1,4 @@
+import 'package:aurelia/core/localization/locale_cubit.dart';
 import 'package:aurelia/core/routing/app_router.dart';
 import 'package:aurelia/core/theme/app_theme.dart';
 import 'package:aurelia/core/theme/theme_cubit.dart';
@@ -13,19 +14,27 @@ class AureliaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeCubit()..loadSavedTheme(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ThemeCubit()..loadSavedTheme()),
+        BlocProvider(create: (context) => LocaleCubit()..loadSavedLocale()),
+      ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
-          return MaterialApp(
+          return BlocBuilder<LocaleCubit, Locale>(
+  builder: (context, locale) {
+    return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Aurelia',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: themeMode,
+            locale: locale,
             initialRoute: Routes.splash,
             onGenerateRoute: appRouter.generateRoute,
           );
+  },
+);
         },
       ),
     );

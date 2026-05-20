@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/localization/locale_cubit.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/theme_cubit.dart';
 
@@ -39,6 +40,18 @@ class HomeScreen extends StatelessWidget {
                 context.read<ThemeCubit>().changeTheme(ThemeMode.system);
               },
               child: const Text('System Mode'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<LocaleCubit>().changeLanguage('ar');
+              },
+              child: const Text('Arabic'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<LocaleCubit>().changeLanguage('en');
+              },
+              child: const Text('English'),
             ),
           ],
         ),
