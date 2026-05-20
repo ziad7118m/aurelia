@@ -22,19 +22,27 @@ class AureliaApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
           return BlocBuilder<LocaleCubit, Locale>(
-  builder: (context, locale) {
-    return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Aurelia',
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeMode,
-            locale: locale,
-            initialRoute: Routes.splash,
-            onGenerateRoute: appRouter.generateRoute,
+            builder: (context, locale) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Aurelia',
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: themeMode,
+                locale: locale,
+                builder: (context, child) {
+                  return Directionality(
+                    textDirection: locale.languageCode == 'ar'
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
+                    child: child!,
+                  );
+                },
+                initialRoute: Routes.splash,
+                onGenerateRoute: appRouter.generateRoute,
+              );
+            },
           );
-  },
-);
         },
       ),
     );
