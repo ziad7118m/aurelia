@@ -1,5 +1,6 @@
 import 'package:aurelia/core/api/dio_factory.dart';
 import 'package:aurelia/features/auth/data/repos/auth_repo.dart';
+import 'package:aurelia/features/auth/logic/cubit/login_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,5 +15,8 @@ void setupDependencyInjection() {
   );
   getIt.registerLazySingleton<AuthRepo>(
     () => AuthRepo(getIt<AuthRemoteDataSource>()),
+  );
+  getIt.registerFactory<LoginCubit>(
+        () => LoginCubit(getIt<AuthRepo>()),
   );
 }
