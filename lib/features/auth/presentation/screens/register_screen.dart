@@ -1,3 +1,4 @@
+import 'package:aurelia/core/localization/app_localization_extension.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -7,14 +8,14 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title:  Text(context.translate('register')),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('Back to Login'),
+          child: Text(context.translate('backToLogin')),
         ),
       ),
     );

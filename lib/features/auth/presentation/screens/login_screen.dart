@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Login Screen'),
+            Text(context.translate('Login Screen')),
 
             const SizedBox(height: 24),
 
@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacementNamed(context, Routes.home);
               },
-              child: const Text('Go to Home'),
+              child:  Text(context.translate('Go to Home')),
             ),
 
             const SizedBox(height: 16),

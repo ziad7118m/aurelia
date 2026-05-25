@@ -6,7 +6,7 @@ import 'locale_cubit.dart';
 
 extension AppLocalizationExtension on BuildContext {
   String translate(String key) {
-    final languageCode = read<LocaleCubit>().state.languageCode;
+    final languageCode = watch<LocaleCubit>().state.languageCode;
 
     return AppStrings.translate(key, languageCode);
   }

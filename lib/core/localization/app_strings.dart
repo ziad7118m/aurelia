@@ -15,6 +15,8 @@ class AppStrings {
       'systemMode': 'System Mode',
       'arabic': 'Arabic',
       'english': 'English',
+      'Login Screen':'Login Screen',
+      'Go to Home':'Go to Home',
     },
     'ar': {
       'appName': 'أوريليا',
@@ -29,6 +31,8 @@ class AppStrings {
       'systemMode': 'حسب النظام',
       'arabic': 'العربية',
       'english': 'الإنجليزية',
+      'Login Screen': 'صفحة تسجيل الدخول',
+      'Go to Home':'الذهاب للصفحه الرئيسيه'
     },
   };
 

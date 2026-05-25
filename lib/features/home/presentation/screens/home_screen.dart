@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/localization/app_localization_extension.dart';
 import '../../../../core/localization/locale_cubit.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/theme_cubit.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Aurelia Home')),
+      appBar: AppBar(title: Text(context.translate('home'))),
       body: Center(
         child: Column(
           children: [
@@ -23,35 +24,35 @@ class HomeScreen extends StatelessWidget {
                   (route) => false,
                 );
               },
-              child: const Text('Logout'),
+              child: Text(context.translate('logout')),
             ),
             ElevatedButton(
               onPressed: () {
                 context.read<ThemeCubit>().changeTheme(ThemeMode.dark);
               },
-              child: const Text('Dark Mode'),
+              child: Text(context.translate('darkMode')),
             ),ElevatedButton(
               onPressed: () {
                 context.read<ThemeCubit>().changeTheme(ThemeMode.light);
               },
-              child: const Text('Light Mode'),
+              child: Text(context.translate('lightMode')),
             ),ElevatedButton(
               onPressed: () {
                 context.read<ThemeCubit>().changeTheme(ThemeMode.system);
               },
-              child: const Text('System Mode'),
+              child:  Text(context.translate('systemMode')),
             ),
             ElevatedButton(
               onPressed: () {
                 context.read<LocaleCubit>().changeLanguage('ar');
               },
-              child: const Text('Arabic'),
+              child: Text(context.translate('arabic')),
             ),
             ElevatedButton(
               onPressed: () {
                 context.read<LocaleCubit>().changeLanguage('en');
               },
-              child: const Text('English'),
+              child: Text(context.translate('english')),
             ),
           ],
         ),
