@@ -1,7 +1,10 @@
 import 'package:aurelia/core/cache/secure_storage_helper.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/api/api_constants.dart';
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/app_localization_extension.dart';
 import '../../../../core/localization/locale_cubit.dart';
 import '../../../../core/routing/routes.dart';
@@ -16,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(title: Text(context.translate('home'))),
       body: Center(
         child: Column(
+          spacing: 5,
           children: [
             ElevatedButton(
               onPressed: () async{

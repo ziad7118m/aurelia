@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                   child: state is LoginLoading? const CircularProgressIndicator() :
-                  Text(context.translate('Go to Home')),
+                  Text(context.translate('login')),
                 ),
 
                 const SizedBox(height: 16),

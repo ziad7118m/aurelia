@@ -1,3 +1,4 @@
+import 'package:aurelia/core/api/token_interceptor.dart';
 import 'package:dio/dio.dart';
 
 import 'api_constants.dart';
@@ -17,6 +18,7 @@ class DioFactory {
         },
       ),
     );
+    dio.interceptors.add(TokenInterceptor());
     dio.interceptors.add(
       LogInterceptor(
         request: true,
