@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/auth/logic/cubit/login_cubit.dart';
+import '../../features/auth/logic/cubit/verify_email_cubit.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
+import '../../features/auth/presentation/screens/verify_email_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/profile/logic/cubit/profile_cubit.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
@@ -25,7 +27,14 @@ class AppRouter {
                 child: LoginScreen(),
               ),
         );
-
+      case Routes.verifyEmail:
+        final email = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<VerifyEmailCubit>(),
+            child: VerifyEmailScreen(email: email),
+          ),
+        );
       case Routes.register:
         return MaterialPageRoute(
           builder: (_) =>
