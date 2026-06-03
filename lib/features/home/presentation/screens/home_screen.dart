@@ -61,6 +61,12 @@ class HomeScreen extends StatelessWidget {
               },
               child: Text(context.translate('english')),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.profile);
+              },
+              child: const Text('Go to Profile'),
+            ),
           ],
         ),
       ),
