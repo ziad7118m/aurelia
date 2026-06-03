@@ -69,4 +69,22 @@ class AuthRepo {
   Future<void> logout() async {
     await SecureStorageHelper.clearTokens();
   }
+
+  Future<ApiResult<void>> verifyEmail({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      await authRemoteDataSource.verifyEmail(
+        email: email,
+        otp: otp,
+      );
+
+      return ApiSuccess<void>(null);
+    } catch (error) {
+      final errorMessage = ApiErrorHandler.handleError(error);
+
+      return ApiError<void>(errorMessage);
+    }
+  }
 }

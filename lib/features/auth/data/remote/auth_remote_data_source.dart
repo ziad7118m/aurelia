@@ -46,4 +46,17 @@ class AuthRemoteDataSource {
 
     return UserModel.fromJson(response.data);
   }
+
+  Future<void> verifyEmail({
+    required String email,
+    required String otp,
+  }) async {
+    await dio.post(
+      ApiConstants.verifyEmail,
+      data: {
+        'email': email,
+        'otp': otp,
+      },
+    );
+  }
 }
