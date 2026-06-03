@@ -1,4 +1,5 @@
 import 'package:aurelia/core/routing/routes.dart';
+import 'package:aurelia/features/auth/logic/cubit/register_cubit.dart';
 import 'package:aurelia/features/onboarding/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,11 @@ class AppRouter {
 
       case Routes.register:
         return MaterialPageRoute(
-          builder: (_) => const RegisterScreen(),
+          builder: (_) =>
+              BlocProvider(
+                create: (context) => getIt<RegisterCubit>(),
+                child: RegisterScreen(),
+              ),
         );
 
       case Routes.home:
@@ -36,10 +41,11 @@ class AppRouter {
         );
       case Routes.profile:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<ProfileCubit>(),
-            child: const ProfileScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(
+                create: (_) => getIt<ProfileCubit>(),
+                child: const ProfileScreen(),
+              ),
         );
       default:
         return MaterialPageRoute(

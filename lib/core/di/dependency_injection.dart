@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/data/remote/auth_remote_data_source.dart';
+import '../../features/auth/logic/cubit/register_cubit.dart';
 import '../../features/profile/logic/cubit/profile_cubit.dart';
 
 final getIt = GetIt.instance;
@@ -22,5 +23,8 @@ void setupDependencyInjection() {
   );
   getIt.registerFactory<ProfileCubit>(
         () => ProfileCubit(getIt<AuthRepo>()),
+  );
+  getIt.registerFactory<RegisterCubit>(
+        () => RegisterCubit(getIt<AuthRepo>()),
   );
 }
