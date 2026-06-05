@@ -26,4 +26,17 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
       emit(VerifyEmailFailure(result.message));
     }
   }
+  Future<void> resendOtp({
+    required String email,
+  }) async {
+    emit(ResendOtpLoading());
+
+    final result = await authRepo.resendOtp(email: email);
+
+    if (result is ApiSuccess<void>) {
+      emit(ResendOtpSuccess());
+    } else if (result is ApiError<void>) {
+      emit(ResendOtpFailure(result.message));
+    }
+  }
 }

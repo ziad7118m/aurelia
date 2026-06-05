@@ -59,4 +59,15 @@ class AuthRemoteDataSource {
       },
     );
   }
+
+  Future<void> resendOtp({
+    required String email,
+  }) async {
+    await dio.post(
+      ApiConstants.resendOtp,
+      data: {
+        'email': email,
+      },
+    );
+  }
 }

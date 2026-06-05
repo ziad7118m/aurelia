@@ -87,4 +87,18 @@ class AuthRepo {
       return ApiError<void>(errorMessage);
     }
   }
+
+  Future<ApiResult<void>> resendOtp({
+    required String email,
+  }) async {
+    try {
+      await authRemoteDataSource.resendOtp(email: email);
+
+      return ApiSuccess<void>(null);
+    } catch (error) {
+      final errorMessage = ApiErrorHandler.handleError(error);
+
+      return ApiError<void>(errorMessage);
+    }
+  }
 }

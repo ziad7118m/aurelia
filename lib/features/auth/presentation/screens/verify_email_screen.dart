@@ -52,6 +52,18 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 content: Text(state.message),
               ),
             );
+          }else if (state is ResendOtpSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('OTP sent successfully.'),
+              ),
+            );
+          } else if (state is ResendOtpFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -89,6 +101,21 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   child: state is VerifyEmailLoading
                       ? const CircularProgressIndicator()
                       : const Text('Verify'),
+                ),
+
+                const SizedBox(height: 16),
+
+                TextButton(
+                  onPressed: state is ResendOtpLoading
+                      ? null
+                      : () {
+                    context.read<VerifyEmailCubit>().resendOtp(
+                      email: widget.email,
+                    );
+                  },
+                  child: state is ResendOtpLoading
+                      ? const Text('Sending...')
+                      : const Text('Resend OTP'),
                 ),
               ],
             ),

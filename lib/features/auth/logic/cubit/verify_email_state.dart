@@ -11,3 +11,13 @@ class VerifyEmailFailure extends VerifyEmailState {
 
   VerifyEmailFailure(this.message);
 }
+
+class ResendOtpLoading extends VerifyEmailState {}
+
+class ResendOtpSuccess extends VerifyEmailState {}
+
+class ResendOtpFailure extends VerifyEmailState {
+  final String message;
+
+  ResendOtpFailure(this.message);
+}
