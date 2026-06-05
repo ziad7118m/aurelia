@@ -19,6 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -51,67 +52,76 @@ class _RegisterScreenState extends State<RegisterScreen> {
           return Padding(
             padding: EdgeInsetsGeometry.all(24),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 40),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 40),
 
-                  TextFormField(
-                    controller: firstNameController,
-                    decoration: const InputDecoration(hintText: 'First Name'),
-                    validator: (value) => AppValidators.requiredField(value, 'First name'),
-                  ),
+                    TextFormField(
+                      controller: firstNameController,
+                      decoration: const InputDecoration(hintText: 'First Name'),
+                      validator: (value) => AppValidators.requiredField(value, 'First name'),
+                    ),
 
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                  TextFormField(
-                    controller: lastNameController,
-                    decoration: const InputDecoration(hintText: 'Last Name'),
-                    validator: (value) => AppValidators.requiredField(value, 'Last name'),
-                  ),
+                    TextFormField(
+                      controller: lastNameController,
+                      decoration: const InputDecoration(hintText: 'Last Name'),
+                      validator: (value) => AppValidators.requiredField(value, 'Last name'),
+                    ),
 
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                  TextFormField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(hintText: 'Email'),
-                  ),
+                    TextFormField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(hintText: 'Email'),
+                      validator: AppValidators.email,
 
-                  const SizedBox(height: 16),
+                    ),
 
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(hintText: 'Password'),
-                  ),
+                    const SizedBox(height: 16),
 
-                  const SizedBox(height: 24),
+                    TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(hintText: 'Password'),
+                      validator: AppValidators.password,
 
-                  ElevatedButton(
-                    onPressed: state is RegisterLoading
-                        ? null
-                        : () {
-                            context.read<RegisterCubit>().register(
-                              firstName: firstNameController.text.trim(),
-                              lastName: lastNameController.text.trim(),
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
-                          },
-                    child: state is RegisterLoading
-                        ? const CircularProgressIndicator()
-                        : Text(context.translate('register')),
-                  ),
+                    ),
 
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 24),
 
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(context.translate('backToLogin')),
-                  ),
-                ],
+                    ElevatedButton(
+                      onPressed: state is RegisterLoading
+                          ? null
+                          : () {
+                        if (formKey.currentState!.validate()) {
+                          context.read<RegisterCubit>().register(
+                            firstName: firstNameController.text.trim(),
+                            lastName: lastNameController.text.trim(),
+                            email: emailController.text.trim(),
+                            password: passwordController.text.trim(),
+                          );
+                        }
+                            },
+                      child: state is RegisterLoading
+                          ? const CircularProgressIndicator()
+                          : Text(context.translate('register')),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(context.translate('backToLogin')),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

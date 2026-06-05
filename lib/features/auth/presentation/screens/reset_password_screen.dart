@@ -21,7 +21,7 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final otpController = TextEditingController();
   final newPasswordController = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     otpController.dispose();
@@ -60,52 +60,59 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Reset password for ${widget.email}',
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 24),
-
-                TextFormField(
-                  controller: otpController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'OTP Code',
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Reset password for ${widget.email}',
+                    textAlign: TextAlign.center,
                   ),
-                  validator: AppValidators.otp,
-                ),
 
-                const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
-                TextFormField(
-                  controller: newPasswordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'New Password',
+                  TextFormField(
+                    controller: otpController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      hintText: 'OTP Code',
+                    ),
+                    validator: AppValidators.otp,
                   ),
-                ),
 
-                const SizedBox(height: 24),
+                  const SizedBox(height: 16),
 
-                ElevatedButton(
-                  onPressed: state is ResetPasswordLoading
-                      ? null
-                      : () {
-                    context.read<ResetPasswordCubit>().resetPassword(
-                      email: widget.email,
-                      otp: otpController.text.trim(),
-                      newPassword: newPasswordController.text.trim(),
-                    );
-                  },
-                  child: state is ResetPasswordLoading
-                      ? const CircularProgressIndicator()
-                      : const Text('Reset Password'),
-                ),
-              ],
+                  TextFormField(
+                    controller: newPasswordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      hintText: 'New Password',
+                    ),
+                    validator: AppValidators.password,
+
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  ElevatedButton(
+                    onPressed: state is ResetPasswordLoading
+                        ? null
+                        : () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<ResetPasswordCubit>().resetPassword(
+                          email: widget.email,
+                          otp: otpController.text.trim(),
+                          newPassword: newPasswordController.text.trim(),
+                        );
+                      }
+                    },
+                    child: state is ResetPasswordLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Reset Password'),
+                  ),
+                ],
+              ),
             ),
           );
         },

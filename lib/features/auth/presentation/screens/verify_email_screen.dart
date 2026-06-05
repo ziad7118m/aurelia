@@ -20,6 +20,7 @@ class VerifyEmailScreen extends StatefulWidget {
 
 class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   final otpController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -70,56 +71,61 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Enter the OTP sent to ${widget.email}',
-                  textAlign: TextAlign.center,
-                ),
-
-                const SizedBox(height: 24),
-
-                TextFormField(
-                  controller: otpController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'OTP Code',
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Enter the OTP sent to ${widget.email}',
+                    textAlign: TextAlign.center,
                   ),
-                  validator: AppValidators.otp,
-                ),
 
-                const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-                ElevatedButton(
-                  onPressed: state is VerifyEmailLoading
-                      ? null
-                      : () {
-                    context.read<VerifyEmailCubit>().verifyEmail(
-                      email: widget.email,
-                      otp: otpController.text.trim(),
-                    );
-                  },
-                  child: state is VerifyEmailLoading
-                      ? const CircularProgressIndicator()
-                      : const Text('Verify'),
-                ),
+                  TextFormField(
+                    controller: otpController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      hintText: 'OTP Code',
+                    ),
+                    validator: AppValidators.otp,
+                  ),
 
-                const SizedBox(height: 16),
+                  const SizedBox(height: 24),
 
-                TextButton(
-                  onPressed: state is ResendOtpLoading
-                      ? null
-                      : () {
-                    context.read<VerifyEmailCubit>().resendOtp(
-                      email: widget.email,
-                    );
-                  },
-                  child: state is ResendOtpLoading
-                      ? const Text('Sending...')
-                      : const Text('Resend OTP'),
-                ),
-              ],
+                  ElevatedButton(
+                    onPressed: state is VerifyEmailLoading
+                        ? null
+                        : () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<VerifyEmailCubit>().verifyEmail(
+                          email: widget.email,
+                          otp: otpController.text.trim(),
+                        );
+                      }
+                    },
+                    child: state is VerifyEmailLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Verify'),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  TextButton(
+                    onPressed: state is ResendOtpLoading
+                        ? null
+                        : () {
+                      context.read<VerifyEmailCubit>().resendOtp(
+                        email: widget.email,
+                      );
+                    },
+                    child: state is ResendOtpLoading
+                        ? const Text('Sending...')
+                        : const Text('Resend OTP'),
+                  ),
+                ],
+              ),
             ),
           );
         },
