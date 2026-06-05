@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/helpers/app_validators.dart';
 import '../../../../core/routing/routes.dart';
 import '../../logic/cubit/reset_password_cubit.dart';
 import '../../logic/cubit/reset_password_state.dart';
@@ -75,6 +76,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   decoration: const InputDecoration(
                     hintText: 'OTP Code',
                   ),
+                  validator: AppValidators.otp,
                 ),
 
                 const SizedBox(height: 16),

@@ -4,6 +4,7 @@ import 'package:aurelia/features/auth/logic/cubit/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/helpers/app_validators.dart';
 import '../../../../core/routing/routes.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -57,6 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   TextFormField(
                     controller: firstNameController,
                     decoration: const InputDecoration(hintText: 'First Name'),
+                    validator: (value) => AppValidators.requiredField(value, 'First name'),
                   ),
 
                   const SizedBox(height: 16),
@@ -64,6 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   TextFormField(
                     controller: lastNameController,
                     decoration: const InputDecoration(hintText: 'Last Name'),
+                    validator: (value) => AppValidators.requiredField(value, 'Last name'),
                   ),
 
                   const SizedBox(height: 16),

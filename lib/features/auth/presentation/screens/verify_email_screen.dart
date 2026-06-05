@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/helpers/app_validators.dart';
 import '../../../../core/routing/routes.dart';
 import '../../logic/cubit/verify_email_cubit.dart';
 import '../../logic/cubit/verify_email_state.dart';
@@ -85,6 +86,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                   decoration: const InputDecoration(
                     hintText: 'OTP Code',
                   ),
+                  validator: AppValidators.otp,
                 ),
 
                 const SizedBox(height: 24),
