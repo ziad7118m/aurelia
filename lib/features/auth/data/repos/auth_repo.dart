@@ -101,4 +101,37 @@ class AuthRepo {
       return ApiError<void>(errorMessage);
     }
   }
+  Future<ApiResult<void>> forgotPassword({
+    required String email,
+  }) async {
+    try {
+      await authRemoteDataSource.forgotPassword(email: email);
+
+      return ApiSuccess<void>(null);
+    } catch (error) {
+      final errorMessage = ApiErrorHandler.handleError(error);
+
+      return ApiError<void>(errorMessage);
+    }
+  }
+
+  Future<ApiResult<void>> resetPassword({
+    required String email,
+    required String otp,
+    required String newPassword,
+  }) async {
+    try {
+      await authRemoteDataSource.resetPassword(
+        email: email,
+        otp: otp,
+        newPassword: newPassword,
+      );
+
+      return ApiSuccess<void>(null);
+    } catch (error) {
+      final errorMessage = ApiErrorHandler.handleError(error);
+
+      return ApiError<void>(errorMessage);
+    }
+  }
 }

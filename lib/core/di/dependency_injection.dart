@@ -5,7 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/auth/data/remote/auth_remote_data_source.dart';
+import '../../features/auth/logic/cubit/forgot_password_cubit.dart';
 import '../../features/auth/logic/cubit/register_cubit.dart';
+import '../../features/auth/logic/cubit/reset_password_cubit.dart';
 import '../../features/auth/logic/cubit/verify_email_cubit.dart';
 import '../../features/profile/logic/cubit/profile_cubit.dart';
 
@@ -30,5 +32,12 @@ void setupDependencyInjection() {
   );
   getIt.registerFactory<VerifyEmailCubit>(
         () => VerifyEmailCubit(getIt<AuthRepo>()),
+  );
+  getIt.registerFactory<ForgotPasswordCubit>(
+        () => ForgotPasswordCubit(getIt<AuthRepo>()),
+  );
+
+  getIt.registerFactory<ResetPasswordCubit>(
+        () => ResetPasswordCubit(getIt<AuthRepo>()),
   );
 }
