@@ -82,6 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text(context.translate('createAccount')),
                 ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.forgotPassword);
+                  },
+                  child: const Text('Forgot Password?'),
+                ),
               ],
             ),
           );

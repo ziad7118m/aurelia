@@ -8,4 +8,6 @@ class Routes {
   static const String home = '/home';
   static const String profile = '/profile';
   static const String verifyEmail = '/verify-email';
+  static const String forgotPassword = '/forgot-password';
+  static const String resetPassword = '/reset-password';
 }
