@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helpers/app_validators.dart';
 import '../../../../core/localization/app_localization_extension.dart';
+import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/app_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -52,36 +54,33 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
+                  AppTextField(
                     controller: emailController,
+                    hintText: 'Email',
                     keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(hintText: 'Email'),
                     validator: AppValidators.email,
-
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
+                  AppTextField(
                     controller: passwordController,
+                    hintText: 'Password',
                     obscureText: true,
-                    decoration: const InputDecoration(hintText: 'Password'),
                     validator: AppValidators.password,
-
                   ),
                   const SizedBox(height: 24),
 
-                  ElevatedButton(
-                    onPressed: state is LoginLoading
-                        ? null
-                        : () {
-                            context.read<LoginCubit>().login(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
-                          },
-                    child: state is LoginLoading? const CircularProgressIndicator() :
-                    Text(context.translate('login')),
+                  AppButton(
+                    text: context.translate('login'),
+                    isLoading: state is LoginLoading,
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<LoginCubit>().login(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                      }
+                    },
                   ),
-
                   const SizedBox(height: 16),
 
                   TextButton(
